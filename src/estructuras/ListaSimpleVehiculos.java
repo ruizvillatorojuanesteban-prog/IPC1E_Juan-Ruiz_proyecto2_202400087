@@ -1,6 +1,6 @@
-package estructuras; 
+package estructuras;
 
-import modelo.Vehiculo; 
+import modelo.Vehiculo;
 
 public class ListaSimpleVehiculos {
     private NodoVehiculo cabeza;
@@ -11,13 +11,11 @@ public class ListaSimpleVehiculos {
         this.tamanio = 0;
     }
 
-    // Agregar vehículo controlando la restricción de máximo 3 por residente
     public boolean agregarVehiculo(Vehiculo vehiculo) {
         if (tamanio >= 3) {
-            System.out.println("Error: El residente ya tiene el límite de 3 vehículos.");
-            return false;
+            return false; // Límite máximo de 3 vehículos por residente
         }
-
+        
         NodoVehiculo nuevo = new NodoVehiculo(vehiculo);
         if (cabeza == null) {
             cabeza = nuevo;
@@ -32,6 +30,27 @@ public class ListaSimpleVehiculos {
         return true;
     }
 
-    public int getTamanio() { return tamanio; }
+    public boolean eliminarVehiculo(String placa) {
+        if (cabeza == null) return false;
+
+        if (cabeza.getVehiculo().getPlaca().equalsIgnoreCase(placa)) {
+            cabeza = cabeza.getSiguiente();
+            tamanio--;
+            return true;
+        }
+
+        NodoVehiculo actual = cabeza;
+        while (actual.getSiguiente() != null) {
+            if (actual.getSiguiente().getVehiculo().getPlaca().equalsIgnoreCase(placa)) {
+                actual.setSiguiente(actual.getSiguiente().getSiguiente());
+                tamanio--;
+                return true;
+            }
+            actual = actual.getSiguiente();
+        }
+        return false;
+    }
+
     public NodoVehiculo getCabeza() { return cabeza; }
+    public int getTamanio() { return tamanio; }
 }
