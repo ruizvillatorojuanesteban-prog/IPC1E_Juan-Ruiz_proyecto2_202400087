@@ -5,15 +5,13 @@ import modelo.Residente;
 public class ListaDobleResidentes {
     private NodoResidente cabeza;
     private NodoResidente cola;
-    private int tamanio;
 
     public ListaDobleResidentes() {
         this.cabeza = null;
         this.cola = null;
-        this.tamanio = 0;
     }
 
-    public void agregarResidente(Residente residente) {
+    public void insertar(Residente residente) {
         NodoResidente nuevo = new NodoResidente(residente);
         if (cabeza == null) {
             cabeza = nuevo;
@@ -23,10 +21,9 @@ public class ListaDobleResidentes {
             nuevo.setAnterior(cola);
             cola = nuevo;
         }
-        tamanio++;
     }
 
-    public Residente buscarPorId(String id) {
+    public Residente buscar(String id) {
         NodoResidente actual = cabeza;
         while (actual != null) {
             if (actual.getResidente().getId().equalsIgnoreCase(id)) {
@@ -37,23 +34,21 @@ public class ListaDobleResidentes {
         return null;
     }
 
-    public boolean eliminarPorId(String id) {
+    public boolean eliminar(String id) {
         NodoResidente actual = cabeza;
         while (actual != null) {
             if (actual.getResidente().getId().equalsIgnoreCase(id)) {
                 if (actual == cabeza) {
-                    cabeza = actual.getSiguiente();
+                    cabeza = cabeza.getSiguiente();
                     if (cabeza != null) cabeza.setAnterior(null);
                     else cola = null;
                 } else if (actual == cola) {
-                    cola = actual.getAnterior();
+                    cola = cola.getAnterior();
                     if (cola != null) cola.setSiguiente(null);
-                    else cabeza = null;
                 } else {
                     actual.getAnterior().setSiguiente(actual.getSiguiente());
                     actual.getSiguiente().setAnterior(actual.getAnterior());
                 }
-                tamanio--;
                 return true;
             }
             actual = actual.getSiguiente();
@@ -61,6 +56,5 @@ public class ListaDobleResidentes {
         return false;
     }
 
-    public int getTamanio() { return tamanio; }
     public NodoResidente getCabeza() { return cabeza; }
 }

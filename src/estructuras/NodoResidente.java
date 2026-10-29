@@ -14,11 +14,8 @@ public class NodoResidente {
     }
 
     public Residente getResidente() { return residente; }
-    public void setResidente(Residente residente) { this.residente = residente; }
-
     public NodoResidente getSiguiente() { return siguiente; }
     public void setSiguiente(NodoResidente siguiente) { this.siguiente = siguiente; }
-
     public NodoResidente getAnterior() { return anterior; }
     public void setAnterior(NodoResidente anterior) { this.anterior = anterior; }
 }
