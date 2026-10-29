@@ -3,16 +3,18 @@ package modelo;
 import estructuras.ListaSimpleVehiculos;
 
 public class Residente {
-    private String id;
+    private String id; // DPI o Código
     private String nombre;
-    private String apartamento;
-    private ListaSimpleVehiculos vehiculos;
+    private String numeroCasa;
+    private boolean esSocio;
+    private ListaSimpleVehiculos vehiculosAsociados;
 
-    public Residente(String id, String nombre, String apartamento) {
+    public Residente(String id, String nombre, String numeroCasa, boolean esSocio) {
         this.id = id;
         this.nombre = nombre;
-        this.apartamento = apartamento;
-        this.vehiculos = new ListaSimpleVehiculos();
+        this.numeroCasa = numeroCasa;
+        this.esSocio = esSocio;
+        this.vehiculosAsociados = new ListaSimpleVehiculos();
     }
 
     public String getId() { return id; }
@@ -21,8 +23,11 @@ public class Residente {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getApartamento() { return apartamento; }
-    public void setApartamento(String apartamento) { this.apartamento = apartamento; }
+    public String getNumeroCasa() { return numeroCasa; }
+    public void setNumeroCasa(String numeroCasa) { this.numeroCasa = numeroCasa; }
 
-    public ListaSimpleVehiculos getVehiculos() { return vehiculos; }
+    public boolean isEsSocio() { return esSocio; }
+    public void setEsSocio(boolean esSocio) { this.esSocio = esSocio; }
+
+    public ListaSimpleVehiculos getVehiculosAsociados() { return vehiculosAsociados; }
 }
