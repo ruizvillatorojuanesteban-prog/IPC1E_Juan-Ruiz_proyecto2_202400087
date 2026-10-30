@@ -2,6 +2,7 @@
 
 import estructuras.ColaSalida;
 import estructuras.ListaListasParqueo;
+import estructuras.PilaVehiculos;
 import modelo.Vehiculo;
 import javax.swing.JTextArea;
 
@@ -9,14 +10,17 @@ public class HiloGaritaSalida extends Thread {
     private String nombreGarita;
     private ColaSalida colaSalida;
     private ListaListasParqueo parqueo;
+    private PilaVehiculos pilaEventos; // Pila manual de eventos (LIFO)
     private int tiempoEspera; // Tiempo que tarda en procesar la salida (ms)
     private JTextArea areaLog;
     private boolean activo;
 
-    public HiloGaritaSalida(String nombreGarita, ColaSalida colaSalida, ListaListasParqueo parqueo, int tiempoEspera, JTextArea areaLog) {
+    public HiloGaritaSalida(String nombreGarita, ColaSalida colaSalida, ListaListasParqueo parqueo, 
+                            PilaVehiculos pilaEventos, int tiempoEspera, JTextArea areaLog) {
         this.nombreGarita = nombreGarita;
         this.colaSalida = colaSalida;
         this.parqueo = parqueo;
+        this.pilaEventos = pilaEventos;
         this.tiempoEspera = tiempoEspera;
         this.areaLog = areaLog;
         this.activo = true;
@@ -33,6 +37,7 @@ public class HiloGaritaSalida extends Thread {
                     try {
                         colaSalida.wait(); // Espera a que llegue un vehículo a la cola de salida
                     } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                         break;
                     }
                 }
@@ -53,6 +58,14 @@ public class HiloGaritaSalida extends Thread {
 
                 // Liberar el espacio en el parqueo utilizando la placa
                 boolean liberado = parqueo.liberarEspacioVehiculo(vehiculoSalida.getPlaca());
+
+                // Registrar las acciones obligatorias en la Pila LIFO exigida por la rúbrica
+                if (pilaEventos != null) {
+                    pilaEventos.apilar(new Vehiculo(vehiculoSalida.getPlaca(), "Vehículo salió", "Procesado", "N/A", "Acción"));
+                    if (liberado) {
+                        pilaEventos.apilar(new Vehiculo(vehiculoSalida.getPlaca(), "Espacio liberado", "Éxito", "N/A", "Acción"));
+                    }
+                }
 
                 // Actualizar la interfaz (Log) de manera segura
                 final Vehiculo v = vehiculoSalida;

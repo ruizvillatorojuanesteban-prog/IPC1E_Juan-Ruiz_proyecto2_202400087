@@ -3,22 +3,36 @@ package modelo;
 import estructuras.ListaSimpleVehiculos;
 
 public class Residente {
-    private String id; // DPI o Código
+    private String dpi;
     private String nombre;
     private String numeroCasa;
-    private boolean esSocio;
+    private boolean esSocio; 
     private ListaSimpleVehiculos vehiculosAsociados;
 
-    public Residente(String id, String nombre, String numeroCasa, boolean esSocio) {
-        this.id = id;
+    // Constructor de 4 parámetros (el que reclaman ControladorPersistencia y VentanaGestionResidentes)
+    public Residente(String dpi, String nombre, String numeroCasa, boolean esSocio) {
+        this.dpi = dpi;
         this.nombre = nombre;
         this.numeroCasa = numeroCasa;
         this.esSocio = esSocio;
         this.vehiculosAsociados = new ListaSimpleVehiculos();
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    // Constructor alternativo por si se usa de 3
+    public Residente(String dpi, String nombre, boolean esSocio) {
+        this.dpi = dpi;
+        this.nombre = nombre;
+        this.numeroCasa = "N/A";
+        this.esSocio = esSocio;
+        this.vehiculosAsociados = new ListaSimpleVehiculos();
+    }
+
+    public String getDpi() { return dpi; }
+    public void setDpi(String dpi) { this.dpi = dpi; }
+    
+    // Método de compatibilidad requerido por VentanaGestionResidentes
+    public String getId() { return dpi; }
+    public void setId(String id) { this.dpi = id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -30,4 +44,5 @@ public class Residente {
     public void setEsSocio(boolean esSocio) { this.esSocio = esSocio; }
 
     public ListaSimpleVehiculos getVehiculosAsociados() { return vehiculosAsociados; }
+    public void setVehiculosAsociados(ListaSimpleVehiculos vehiculosAsociados) { this.vehiculosAsociados = vehiculosAsociados; }
 }

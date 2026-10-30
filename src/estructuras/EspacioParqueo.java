@@ -24,6 +24,12 @@ public class EspacioParqueo {
         this.ocupado = true;
     }
 
+    // Método añadido para total compatibilidad con la asignación manual
+    public void setVehiculoActual(Vehiculo v) {
+        this.vehiculoActual = v;
+        this.ocupado = (v != null);
+    }
+
     public void liberarEspacio() {
         this.vehiculoActual = null;
         this.ocupado = false;

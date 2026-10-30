@@ -1,11 +1,20 @@
+import controlador.ControladorPersistencia;
+import estructuras.ListaDobleResidentes;
 import vista.VentanaPrincipal;
 
 public class Main {
     public static void main(String[] args) {
-        // Ejecutar la interfaz gráfica en el hilo de eventos de Swing
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            VentanaPrincipal ventana = new VentanaPrincipal();
-            ventana.setVisible(true);
+        ListaDobleResidentes listaResidentes = new ListaDobleResidentes();
+
+        ControladorPersistencia.cargarDatos(listaResidentes);
+
+        java.awt.EventQueue.invokeLater(() -> {
+            new VentanaPrincipal(listaResidentes).setVisible(true);
         });
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            ControladorPersistencia.guardarDatos(listaResidentes);
+            System.out.println("Datos guardados correctamente al salir.");
+        }));
     }
 }

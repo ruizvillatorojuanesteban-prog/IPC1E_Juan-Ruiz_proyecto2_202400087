@@ -32,6 +32,11 @@ public class ListaListasParqueo {
         }
     }
 
+    // Nuevo método getter para la representación gráfica en Swing
+    public FilaParqueo getInicioFilas() {
+        return inicioFilas;
+    }
+
     public boolean estacionarVehiculo(Vehiculo vehiculo, boolean esSocio) {
         FilaParqueo actual = inicioFilas;
         

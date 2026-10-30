@@ -1,0 +1,4 @@
+P-123ABC|Toyota|Corolla|Negro|1234
+P-999XYZ|Honda|civic|gris|1324
+P-444JJJ|Mazda|Mazda3|Rojo|4321
+P-888FFF|Honda|Type R|Gris|7890
